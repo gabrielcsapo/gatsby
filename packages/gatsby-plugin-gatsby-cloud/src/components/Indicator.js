@@ -1,15 +1,10 @@
 import React, { useState, useEffect, useCallback, useRef } from "react"
 import getBuildInfo from "../utils/getBuildInfo"
 import IndicatorButton from "./IndicatorButton"
-import { getButtonProps as getIndicatorButtonProps } from "./GatsbyIndicatorButton"
-import { getButtonProps as getInfoIndicatorButtonProps } from "./InfoIndicatorButton"
-import { getButtonProps as getLinkIndicatorButtonProps } from "./LinkIndicatorButton"
-import {
-  gatsbyIcon,
-  infoIcon,
-  linkIcon,
-  successIcon,
-} from "./icons"
+import getGatsbyIndicatorButtonProps from "./getGatsbyIndicatorButtonProps"
+import getLinkIndicatorButtonProps from "./getLinkIndicatorButtonProps"
+import getInfoIndicatorButtonProps from "./getInfoIndicatorButtonProps"
+import { gatsbyIcon, infoIcon, linkIcon, successIcon } from "./icons"
 import Style from "./Style"
 
 const POLLING_INTERVAL = process.env.GATSBY_PREVIEW_POLL_INTERVAL || 3000
@@ -172,7 +167,7 @@ export default function Indicator({ children }) {
     <PreviewIndicator
       buildInfo={buildInfo}
       gatsbyIndicatorButtonProps={{
-        ...getIndicatorButtonProps({
+        ...getGatsbyIndicatorButtonProps({
           status,
           orgId,
           siteId,
