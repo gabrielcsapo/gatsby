@@ -2,7 +2,7 @@ import React, { useState } from "react"
 
 import IndicatorButton from "./IndicatorButton"
 
-const linkIcon = (
+export const linkIcon = (
   <svg
     width="24"
     height="24"
@@ -33,7 +33,7 @@ const successIcon = (
   </svg>
 )
 
-const getButtonProps = ({ status, copyLinkClick, button }) => {
+export const getButtonProps = ({ status, copyLinkClick, button }) => {
   switch (status) {
     case `SUCCESS`:
     case `ERROR`: {

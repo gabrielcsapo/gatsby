@@ -3,7 +3,7 @@ import { formatDistance } from "date-fns"
 
 import IndicatorButton from "./IndicatorButton"
 
-const infoIcon = (
+export const infoIcon = (
   <svg
     width="24"
     height="24"
@@ -18,7 +18,7 @@ const infoIcon = (
   </svg>
 )
 
-const getButtonProps = ({ status, createdAt }) => {
+export const getButtonProps = ({ status, createdAt }) => {
   switch (status) {
     case `SUCCESS`:
     case `ERROR`:
