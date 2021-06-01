@@ -118,30 +118,3 @@ export const getButtonProps = ({
     }
   }
 }
-
-export default function GatsbyIndicatorButton({
-  status,
-  orgId,
-  siteId,
-  errorBuildId,
-  isOnPrettyUrl,
-  sitePrefix,
-}) {
-  const buttonProps = getButtonProps({
-    status,
-    orgId,
-    siteId,
-    errorBuildId,
-    isOnPrettyUrl,
-    sitePrefix,
-  })
-
-  return (
-    <IndicatorButton
-      testId="gatsby"
-      iconSvg={gatsbyIcon}
-      {...buttonProps}
-      isFirstButton={true}
-    />
-  )
-}

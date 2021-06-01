@@ -44,17 +44,3 @@ export const getButtonProps = ({ status, createdAt }) => {
     }
   }
 }
-
-export default function InfoIndicatorButton({ status, createdAt }) {
-  const buttonProps = getButtonProps({ status, createdAt })
-
-  return (
-    <IndicatorButton
-      testId="info"
-      iconSvg={infoIcon}
-      {...buttonProps}
-      // See IndicatorButtonTooltip for explanation
-      toolTipOffset={80}
-    />
-  )
-}
