@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useCallback, useRef } from "react"
-
 import getBuildInfo from "../utils/getBuildInfo"
 import IndicatorButton from "./IndicatorButton"
 import {
   getButtonProps as getIndicatorButtonProps,
   gatsbyIcon,
-  logsIcon,
 } from "./GatsbyIndicatorButton"
 import {
   getButtonProps as getInfoIndicatorButtonProps,
@@ -14,12 +12,9 @@ import {
 import {
   getButtonProps as getLinkIndicatorButtonProps,
   linkIcon,
-} from "./InfoIndicatorButton"
+  successIcon,
+} from "./LinkIndicatorButton"
 import Style from "./Style"
-
-import GatsbyIndicatorButton from "./GatsbyIndicatorButton"
-import LinkIndicatorButton from "./LinkIndicatorButton"
-import InfoIndicatorButton from "./InfoIndicatorButton"
 
 const POLLING_INTERVAL = process.env.GATSBY_PREVIEW_POLL_INTERVAL || 3000
 
@@ -29,7 +24,33 @@ export function PreviewIndicator({
   linkIndicatorButtonProps,
   infoIndicatorButtonProps,
 }) {
-  console.log(`testing the compile..., yes...`)
+  const [linkButtonCopyProps, setLinkButtonCopyProps] = useState()
+
+  const copyLinkClick = () => {
+    setLinkButtonCopyProps({
+      tooltipIcon: successIcon,
+      overrideShowTooltip: true,
+      tooltipText: `Link copied`,
+    })
+
+    setTimeout(() => {
+      setLinkButtonCopyProps({
+        tooltipIcon: successIcon,
+        overrideShowTooltip: false,
+        tooltipText: `Link copied`,
+      })
+      // We want the tooltip to linger for two seconds to let the user know it has been copied
+    }, 2000)
+
+    setTimeout(() => {
+      setLinkButtonCopyProps({ tooltipText: `Copy Link` })
+      // The tooltips fade out, in order to make sure that the text does not change
+      // while it is fading out we need to wait a bit longer than the time used above.
+    }, 2400)
+
+    navigator.clipboard.writeText(window.location.href)
+  }
+
   return (
     <>
       <Style />
@@ -41,24 +62,23 @@ export function PreviewIndicator({
         <IndicatorButton
           testId="gatsby"
           iconSvg={gatsbyIcon}
+          isFirstButton={true}
           {...gatsbyIndicatorButtonProps}
         />
-        {/* <GatsbyIndicatorButton {...buildInfo} />*/}
         <IndicatorButton
           testId={`link`}
           iconSvg={linkIcon}
           toolTipOffset={40}
+          onClick={copyLinkClick}
+          {...linkButtonCopyProps}
           {...linkIndicatorButtonProps}
         />
-        />
-        {/* <LinkIndicatorButton {...buildInfo} />*/}
         <IndicatorButton
           testId="info"
           iconSvg={infoIcon}
           {...infoIndicatorButtonProps}
           toolTipOffset={80}
         />
-        {/* <InfoIndicatorButton {...buildInfo} />*/}
       </div>
       {children}
     </>
@@ -168,18 +188,6 @@ export default function Indicator({ children }) {
       linkIndicatorButtonProps={{
         ...getLinkIndicatorButtonProps({
           status,
-          /**
-           * @todo replace this
-           */
-          copyLinkClick: () => console.log(`fake copy!!!!`),
-          /**
-           * @todo replace this
-           */
-          button: {
-            tooltipIcon: linkIcon,
-            tooltipText: `fake tt text`,
-            overrideShowTooltip: false,
-          },
         }),
       }}
       infoIndicatorButtonProps={{

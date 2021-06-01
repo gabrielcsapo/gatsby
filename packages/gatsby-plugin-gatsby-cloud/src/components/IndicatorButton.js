@@ -114,7 +114,7 @@ const IndicatorButton = ({
         <div
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
-          onClick={onClick}
+          onClick={active ? onClick : null}
         >
           {iconSvg}
           {showSpinner && (
